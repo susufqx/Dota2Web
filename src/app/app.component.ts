@@ -1,17 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
+import { Dota2Service } from './dota2.service';
 
 @Component({
   selector: 'dota2-angular',
   template: `
     <h1>{{title}}</h1>
-    <h2>My Heroes</h2>
+    <!--<h2>My Heroes</h2>
     <ul class="heroes">
       <li *ngFor="let hero of heroes"
           (click) = "onSelect(hero)"
           [class.selected] = "hero === selectedHero">
         <span class="badge">{{hero.id}}</span> {{hero.name}}
+      </li>
+    </ul>-->
+    <h2>DOTA2_MATCH_DETAILS</h2>
+    <ul class="heroes players" *ngIf="players">
+      <li *ngFor="let player of players">
+        <span class="badge">{{player.hero_name}}</span> {{player.username}}
       </li>
     </ul>
     <hero-detail [hero]="selectedHero"></hero-detail>
@@ -33,6 +40,9 @@ import { HeroService } from './hero.service';
     list-style-type: none;
     padding: 0;
     width: 15em;
+  }
+  .players{
+    width: 25em;
   }
   .heroes li {
     cursor: pointer;
@@ -72,22 +82,37 @@ import { HeroService } from './hero.service';
     border-radius: 4px 0 0 4px;
   }
 `],
-  providers: [HeroService]
+  providers: [HeroService, Dota2Service]
 })
 
 export class AppComponent implements OnInit {
   //title = 'Welcome to dota2 space!';
   title = 'Tour of heroes';
   heroes : Hero[];
+  match_details : {};
+  players : {};
   selectedHero: Hero;
   onSelect(hero: Hero): void{
     this.selectedHero = hero;
   }
-  constructor(private heroService: HeroService) {}
+  constructor(private heroService: HeroService, private dota2Service: Dota2Service) {}
   getHeroes() : void {
-    this.heroService.getHeroes().then(heroes => this.heroes = heroes);
+    this.heroService.getHeroes().then(heroes => {
+      console.log(heroes);
+      this.heroes = heroes;
+    });
+  }
+  getMatchDetails() : void {
+    this.dota2Service.getMatchDetails().then(
+      res => {
+        console.log('==================================');
+        console.log(res);
+        this.match_details = res;
+        this.players = res.players;
+    });
   }
   ngOnInit() {
     this.getHeroes();
+    this.getMatchDetails();
   }
 }
