@@ -1,20 +1,47 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
-    {{title}}
-  </h1>
-  <h2>{{hero.name}} details!</h2>
-  <img width="300" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==">
-</div>
-<h2>Here are some links to help you start: </h2>
-<ul>
-  <li>
-    <h2><a target="_blank" href="https://angular.io/tutorial">Tour of Heroes</a></h2>
+<h1>{{title}}</h1>
+<!--<h2>My Heroes</h2>
+<ul class="heroes">
+  <li *ngFor="let hero of heroes"
+      (click) = "onSelect(hero)"
+      [class.selected] = "hero === selectedHero">
+    <span class="badge">{{hero.id}}</span> {{hero.name}}
   </li>
-  <li>
-    <h2><a target="_blank" href="https://github.com/angular/angular-cli/wiki">CLI Documentation</a></h2>
-  </li>
-  <li>
-    <h2><a target="_blank" href="https://blog.angular.io/">Angular blog</a></h2>
-  </li>
+</ul>-->
+<h2>DOTA2_MATCH_DETAILS</h2>
+<ul class="heroes players" *ngIf="players">
+  <!--<li *ngFor="let player of players">-->
+    <!--<span class="badge">{{player.hero_name}}</span> {{player.username}}-->
+    <table class="table table-striped table-bordered table-hover table-condensed">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Player</th>
+          <th>Hero</th>
+          <th>K/D/A<br/>KDA</th>
+          <th>Damage</th>
+          <th>LH/DN</th>
+          <th>GPM</th>
+          <th>XPM</th>
+          <th>TD</th>
+          <th>HH</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let player of players">
+          <th><a><img src = "{{player.image_sm}}"></a></th>
+          <th>{{player.username}}</th>
+          <th><a><img class="img img-sm" src = "http://cdn.dota2.com/apps/dota2/images/heroes/{{player.hero_image_name}}_hphover.png"><br/>{{player.level}}</a></th>
+          <th>{{player.kills}}/{{player.deaths}}/{{player.assists}}<br/>{{player.KDA}}</th>
+          <th>{{player.hero_damage}}</th>
+          <th>{{player.last_hits}}/{{player.denies}}</th>
+          <th>{{player.gold_per_min}}</th>
+          <th>{{player.xp_per_min}}</th>
+          <th>{{player.tower_damage}}</th>
+          <th>{{player.hero_healing}}</th>
+        </tr>
+      </tbody>
+    </table>
+  <!--</li>-->
 </ul>
+<hero-detail [hero]="selectedHero"></hero-detail>

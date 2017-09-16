@@ -5,25 +5,7 @@ import { Dota2Service } from './dota2.service';
 
 @Component({
   selector: 'dota2-angular',
-  template: `
-    <h1>{{title}}</h1>
-    <!--<h2>My Heroes</h2>
-    <ul class="heroes">
-      <li *ngFor="let hero of heroes"
-          (click) = "onSelect(hero)"
-          [class.selected] = "hero === selectedHero">
-        <span class="badge">{{hero.id}}</span> {{hero.name}}
-      </li>
-    </ul>-->
-    <h2>DOTA2_MATCH_DETAILS</h2>
-    <ul class="heroes players" *ngIf="players">
-      <li *ngFor="let player of players">
-        <span class="badge">{{player.hero_name}}</span> {{player.username}}
-      </li>
-    </ul>
-    <hero-detail [hero]="selectedHero"></hero-detail>
-    `,
-  //templateUrl: './app.component.html',
+  templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   styles: [`
   h1{
@@ -108,6 +90,11 @@ export class AppComponent implements OnInit {
         console.log('==================================');
         console.log(res);
         this.match_details = res;
+        for (let i in res.players) {
+          res.players[i].KDA =(res.players[i].kills + res.players[i].assists) / (res.players[i].deaths);
+          let hero_image_name = res.players[i].hero_name.toLowerCase();
+          res.players[i].hero_image_name = (hero_image_name.split(' ')).join('_');
+        }
         this.players = res.players;
     });
   }
