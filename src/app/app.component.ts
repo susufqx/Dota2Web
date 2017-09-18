@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
 import { Dota2Service } from './dota2.service';
+import { _ } from 'underscore';
 
 @Component({
   selector: 'dota2-angular',
@@ -68,7 +69,6 @@ import { Dota2Service } from './dota2.service';
 })
 
 export class AppComponent implements OnInit {
-  //title = 'Welcome to dota2 space!';
   title = 'Tour of heroes';
   heroes : Hero[];
   match_details : {};
@@ -80,22 +80,27 @@ export class AppComponent implements OnInit {
   constructor(private heroService: HeroService, private dota2Service: Dota2Service) {}
   getHeroes() : void {
     this.heroService.getHeroes().then(heroes => {
-      console.log(heroes);
       this.heroes = heroes;
     });
   }
   getMatchDetails() : void {
     this.dota2Service.getMatchDetails().then(
       res => {
-        console.log('==================================');
-        console.log(res);
         this.match_details = res;
         for (let i in res.players) {
-          res.players[i].KDA =(res.players[i].kills + res.players[i].assists) / (res.players[i].deaths);
-          let hero_image_name = res.players[i].hero_name.toLowerCase();
-          res.players[i].hero_image_name = (hero_image_name.split(' ')).join('_');
+          res.players[i].KDA = (Math.round((res.players[i].kills + res.players[i].assists) / (res.players[i].deaths))).toFixed(1);
         }
-        this.players = res.players;
+        let group = _.groupBy(res.players, function(player, key) {return key < 5});
+        this.players = [
+          {
+            name : "Radiant",
+            players : group.true
+          },
+          {
+            name : "Dire",
+            players : group.false
+          }
+        ];
     });
   }
   ngOnInit() {

@@ -1,44 +1,47 @@
 <div class="container theme-showcase">
   <h2 class="text-center">DOTA2_MATCH_DETAILS</h2>
   <div *ngIf="players">
-    <table class="table table-striped table-bordered table-hover">
-      <thead>
-        <tr class="text-center">
-          <th></th>
-          <th>Player</th>
-          <th>Hero</th>
-          <th>K/D/A<br/>KDA</th>
-          <th>Damage</th>
-          <th>LH/DN</th>
-          <th>GPM</th>
-          <th>XPM</th>
-          <th>TD</th>
-          <th>HH</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let player of players">
-          <td>
-            <a>
-              <img src = "{{player.image_sm}}">
-            </a>
-          </td>
-          <td width-min="85px">{{player.username}}</td>
-          <td>
-            <a>
-              <img alt="{{player.hero_image_name}}" height="36px" src="http://cdn.dota2.com/apps/dota2/images/heroes/{{player.hero_image_name}}_hphover.png">
-              &nbsp;{{player.level}}
-            </a>
-          </td>
-          <td>{{player.kills}}/{{player.deaths}}/{{player.assists}}<br/>{{player.KDA}}</td>
-          <td>{{player.hero_damage}}</td>
-          <td>{{player.last_hits}}/{{player.denies}}</td>
-          <td>{{player.gold_per_min}}</td>
-          <td>{{player.xp_per_min}}</td>
-          <td>{{player.tower_damage}}</td>
-          <td>{{player.hero_healing}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <div *ngFor="let team of players">
+      <h2>{{team.name}}</h2>
+      <table class="table table-striped table-bordered table-hover">
+        <thead>
+          <tr class="text-center">
+            <th></th>
+            <th>Player</th>
+            <th>Hero</th>
+            <th>K/D/A<br/>KDA</th>
+            <th>Damage</th>
+            <th>LH/DN</th>
+            <th>GPM</th>
+            <th>XPM</th>
+            <th>TD</th>
+            <th>HH</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let player of team.players">
+            <td>
+              <a>
+                <img src = "{{player.image_sm}}">
+              </a>
+            </td>
+            <td width-min="85px">{{player.username}}</td>
+            <td>
+              <a>
+                <img alt="{{player.hero_image_name}}" height="36px" src="{{player.hero_image}}">
+                &nbsp;{{player.level}}
+              </a>
+            </td>
+            <td>{{player.kills}}/{{player.deaths}}/{{player.assists}}<br/>{{player.KDA}}</td>
+            <td>{{player.hero_damage}}</td>
+            <td>{{player.last_hits}}/{{player.denies}}</td>
+            <td>{{player.gold_per_min}}</td>
+            <td>{{player.xp_per_min}}</td>
+            <td>{{player.tower_damage}}</td>
+            <td>{{player.hero_healing}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
