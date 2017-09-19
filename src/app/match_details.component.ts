@@ -1,6 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { ActivatedRoute, ParamMap } from '@angular/router';
+import { Location } from '@angular/common';
+
 import { Dota2Service } from './dota2.service';
 import { _ } from 'underscore';
+
+import 'rxjs/add/operator/switchMap';
 
 @Component({
   selector: 'match-details',
@@ -12,11 +17,19 @@ export class Match_DetailsComponent implements OnInit {
   match_details : {};
   players : {};
 
-  constructor(private dota2Service: Dota2Service) {}
+  constructor(
+    private dota2Service: Dota2Service,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
 
   getMatchDetails() : void {
-    this.dota2Service.getMatchDetails().then(
-      res => {
+    console.log('begin match details');
+    this.route.paramMap
+    .switchMap(
+      (params: ParamMap) => this.dota2Service.getMatchDetails((params.get('match_id')))
+    ).subscribe(
+      (res: any) => {
         this.match_details = res;
         for (let i in res.players) {
           res.players[i].KDA = (Math.round((res.players[i].kills + res.players[i].assists) / (res.players[i].deaths))).toFixed(1);
@@ -36,5 +49,8 @@ export class Match_DetailsComponent implements OnInit {
   }
   ngOnInit() {
     this.getMatchDetails();
+  }
+  goBack(): void {
+    this.location.back();
   }
 }
