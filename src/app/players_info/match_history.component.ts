@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Dota2Service } from '../services/dota2.service';
@@ -20,7 +20,8 @@ export class Match_HistoryComponent {
   constructor (
     private dota2Service: Dota2Service,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private router: Router
   ) {}
 
   getMatchHistory() : void {
@@ -37,5 +38,8 @@ export class Match_HistoryComponent {
   }
   ngOnInit() {
     this.getMatchHistory();
+  }
+  goMatch(id) : void{
+    this.router.navigate(['/match_details', id.toString()]);
   }
 }

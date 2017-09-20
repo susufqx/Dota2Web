@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let match of match_history.matches">
+        <tr *ngFor="let match of match_history.matches" (click)="goMatch([match.match_id])" class="eachMatch">
           <th></th>
           <th>{{match.match_id}}</th>
           <th>{{match.end_time}}</th>
