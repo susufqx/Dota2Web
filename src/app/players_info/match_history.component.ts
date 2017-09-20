@@ -1,12 +1,6 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, ParamMap, Router } from '@angular/router';
-import { Location } from '@angular/common';
-
-import { Dota2Service } from '../services/dota2.service';
-import { _ } from 'underscore';
-import * as moment from 'moment';
-
-import 'rxjs/add/operator/switchMap';
+import { Component, Injectable, Injector } from '@angular/core';
+// import the base class
+import { Player_Summaries } from '../modules/Player_Summaries';
 
 @Component({
   selector : 'match-history',
@@ -14,32 +8,24 @@ import 'rxjs/add/operator/switchMap';
   styleUrls : ['./match_history.component.css']
 })
 
-export class Match_HistoryComponent {
-  match_history : [Object]
-
-  constructor (
-    private dota2Service: Dota2Service,
-    private route: ActivatedRoute,
-    private location: Location,
-    private router: Router
-  ) {}
-
-  getMatchHistory() : void {
-    this.route.paramMap
-    .switchMap(
-      (params: ParamMap) => this.dota2Service.getMatchHistory((params.get('account_id')))
-    ).subscribe(
-      (res:any) => {
-        for (let i in res.matches) {
-          res.matches[i].end_time = moment(new Date(res.matches[i].start_time * 1000)).fromNow();
-        }
-        this.match_history = res;
-    });
+@Injectable()
+export class Match_HistoryComponent extends Player_Summaries {
+  constructor (private injector: Injector) {
+    super(injector);
   }
+  /*constructor(
+    private this_dota2Service: Dota2Service,
+    private this_route: ActivatedRoute,
+    private this_router: Router
+  ){
+    super(this_dota2Service, this_route, this_router);
+  }*/
+
   ngOnInit() {
-    this.getMatchHistory();
+    this.getMatchesHistory();
   }
-  goMatch(id) : void{
+
+  goMatch(id: Number) : void{
     this.router.navigate(['/match_details', id.toString()]);
   }
 }
