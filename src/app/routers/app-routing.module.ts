@@ -1,9 +1,9 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { Match_DetailsComponent } from './match_details.component';
-import { Match_HistoryComponent } from './match_history.component';
-import { Dota2DashboardComponent } from './dashboard.component';
+import { Match_DetailsComponent } from '../match_details/match_details.component';
+import { Match_HistoryComponent } from '../players_info/match_history.component';
+import { Dota2DashboardComponent } from '../common/dashboard.component';
 
 const routes : Routes = [
   { path : "", redirectTo : "/dota2_dashboard", pathMatch: "full" },

@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Dota2Service } from './dota2.service';
+import { Dota2Service } from '../services/dota2.service';
 import { _ } from 'underscore';
 
 import 'rxjs/add/operator/switchMap';

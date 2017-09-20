@@ -3,14 +3,14 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule }   from '@angular/forms'; // <-- NgModel lives here
 // the components
-import { AppComponent } from './app.component';
-import { Match_DetailsComponent } from './match_details.component';
-import { Dota2DashboardComponent } from './dashboard.component';
-import { Match_HistoryComponent } from './match_history.component';
+import { AppComponent } from './common/app.component';
+import { Match_DetailsComponent } from './match_details/match_details.component';
+import { Dota2DashboardComponent } from './common/dashboard.component';
+import { Match_HistoryComponent } from './players_info/match_history.component';
 // the services
-import { Dota2Service } from './dota2.service';
+import { Dota2Service } from './services/dota2.service';
 //definie the route
-import { AppRoutingModule }     from './app-routing.module';
+import { AppRoutingModule }     from './routers/app-routing.module';
 
 @NgModule({
   /* the components added into module */
