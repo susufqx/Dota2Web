@@ -14,8 +14,8 @@ import 'rxjs/add/operator/switchMap';
 })
 
 export class Match_DetailsComponent implements OnInit {
-  match_details : {};
-  players : {};
+  match_details : Object;
+  players : [Object];
 
   constructor(
     private dota2Service: Dota2Service,
@@ -24,7 +24,6 @@ export class Match_DetailsComponent implements OnInit {
   ) {}
 
   getMatchDetails() : void {
-    console.log('begin match details');
     this.route.paramMap
     .switchMap(
       (params: ParamMap) => this.dota2Service.getMatchDetails((params.get('match_id')))
