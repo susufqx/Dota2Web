@@ -31,18 +31,21 @@ export abstract class Player_Summaries {
   getMatchesHistory(numberMatches?: Number):void {
     this.route.paramMap
     .switchMap(
-      (params: ParamMap) => this.dota2Service.getMatchHistory((params.get('account_id')))
+      (params: ParamMap) => this.dota2Service.getMatchHistory(params.get('account_id'))
     ).subscribe(
       (res:any) => {
-        for (let i in res.matches) {
+        /*for (let i in res.matches) {
           res.matches[i].end_time = moment(new Date(res.matches[i].start_time * 1000)).fromNow();
-        }
+        }*/
+        _.map(res.matches, function (match) {
+          match.end_time = moment(new Date(match.start_time * 1000)).fromNow();
+        });
         if (numberMatches) {
-          this.matchesHistory = _.filter(res, function(match, key) {
+          this.matchesHistory = _.filter(res.matches, function(match, key) {
             return key < numberMatches;
           });
         } else {
-          this.matchesHistory = res;
+          this.matchesHistory = res.matches;
         }
     });
   }
@@ -50,7 +53,14 @@ export abstract class Player_Summaries {
     /* to do later */
   }
   getPersonalInfo():void {
-    /* to do later */ 
+    this.route.paramMap
+    .switchMap(
+      (params: ParamMap) => this.dota2Service.getPlayerSummaries(params.get('account_id'))
+    ).subscribe(
+      (res:any) => {
+        this.personalInfo = res.players[0];
+      }
+    );
   }
   //init function
   onInit() {

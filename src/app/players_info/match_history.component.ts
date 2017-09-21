@@ -1,6 +1,6 @@
 import { Component, Injectable, Injector } from '@angular/core';
 // import the base class
-import { Player_Summaries } from '../modules/Player_Summaries';
+import { Player_Summaries } from '../modules/player_summaries';
 
 @Component({
   selector : 'match-history',

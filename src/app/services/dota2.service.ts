@@ -9,4 +9,8 @@ export class Dota2Service {
   getMatchHistory(account_id : String) : any{
     return fetch('http://localhost:5000/player/matches/' + account_id).then(res => res.json());
   }
+
+  getPlayerSummaries(account_id : String) : any{
+    return fetch('http://localhost:5000/player/summaries/' + account_id).then(res => res.json());
+  }
 }

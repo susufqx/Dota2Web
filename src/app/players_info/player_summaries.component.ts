@@ -1,11 +1,11 @@
 import { Component, Injectable, Injector } from '@angular/core';
 // import the base class
-import { Player_Summaries } from '../modules/Player_Summaries';
+import { Player_Summaries } from '../modules/player_summaries';
 
 @Component ({
   selector: 'player-summaries',
-  templateUrl: './player-summaries.component.html',
-  styleUrls: ['./player-summaries.component.css']
+  templateUrl: './player_summaries.component.html',
+  styleUrls: ['./player_summaries.component.css']
 })
 
 @Injectable()
@@ -14,8 +14,13 @@ export class  Player_SummariesComponent extends Player_Summaries {
     super(injector);
   }
 
-  ngOninit() {
-    this.getMatchesHistory();
+  ngOnInit() {
+    console.log("HELLO");
+    this.getMatchesHistory(10);
     this.getPersonalInfo();
+  }
+
+  goMatch(id: Number) : void{
+    this.router.navigate(['/match_details', id.toString()]);
   }
 }
