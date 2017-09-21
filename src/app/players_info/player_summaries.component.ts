@@ -1,4 +1,4 @@
-import { Component, Injectable, Injector } from '@angular/core';
+import { Component, Injector } from '@angular/core';
 // import the base class
 import { Player_Summaries } from '../modules/player_summaries';
 
@@ -8,7 +8,6 @@ import { Player_Summaries } from '../modules/player_summaries';
   styleUrls: ['./player_summaries.component.css']
 })
 
-@Injectable()
 export class  Player_SummariesComponent extends Player_Summaries {
   constructor (private injector: Injector) {
     super(injector);

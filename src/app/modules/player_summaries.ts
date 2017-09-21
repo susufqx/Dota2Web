@@ -22,11 +22,6 @@ export abstract class Player_Summaries {
     this.route = this.baseInjector.get(ActivatedRoute);
     this.router = this.baseInjector.get(Router);
   }
-  /*constructor(
-    protected dota2Service: Dota2Service,
-    protected route: ActivatedRoute,
-    protected router: Router
-  ){}*/
   // member functions
   getMatchesHistory(numberMatches?: Number):void {
     this.route.paramMap
@@ -34,9 +29,6 @@ export abstract class Player_Summaries {
       (params: ParamMap) => this.dota2Service.getMatchHistory(params.get('account_id'))
     ).subscribe(
       (res:any) => {
-        /*for (let i in res.matches) {
-          res.matches[i].end_time = moment(new Date(res.matches[i].start_time * 1000)).fromNow();
-        }*/
         _.map(res.matches, function (match) {
           match.end_time = moment(new Date(match.start_time * 1000)).fromNow();
         });
