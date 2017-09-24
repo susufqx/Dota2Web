@@ -31,7 +31,8 @@ export class Match_DetailsComponent implements OnInit {
       (res: any) => {
         this.match_details = res;
         for (let i in res.players) {
-          res.players[i].KDA = (Math.round((res.players[i].kills + res.players[i].assists) / (res.players[i].deaths))).toFixed(1);
+          res.players[i].KDA = (Math.round((res.players[i].kills + res.players[i].assists) /
+          (res.players[i].deaths > 0 ? res.players[i].deaths : 1))).toFixed(1);
         }
         let group = _.groupBy(res.players, function(player, key) {return key < 5});
         this.players = [

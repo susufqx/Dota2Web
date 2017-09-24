@@ -13,11 +13,19 @@
       </thead>
       <tbody>
         <tr *ngFor="let match of matchesHistory" (click)="goMatch([match.match_id])" class="eachMatch">
-          <th></th>
+          <th>
+            <a>
+              <img alt="{{match.hero_name}}" height="36px" src="{{match.hero_image}}">
+              &nbsp;{{match.hero_name}}
+            </a>
+          </th>
           <th>{{match.match_id}}</th>
-          <th>{{match.end_time}}</th>
-          <th></th>
-          <th></th>
+          <th>{{match.format_end_time}}</th>
+          <th>
+            <div *ngIf="match.game_win; else failBlock">Win</div>
+            <ng-template #failBlock>Failure</ng-template>
+          </th>
+          <th>{{match.KDA}}&nbsp;({{match.kills}}/{{match.deaths}}/{{match.assists}})</th>
         </tr>
       </tbody>
     </table>
