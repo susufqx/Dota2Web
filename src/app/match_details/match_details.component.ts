@@ -29,6 +29,7 @@ export class Match_DetailsComponent implements OnInit {
       (params: ParamMap) => this.dota2Service.getMatchDetails((params.get('match_id')))
     ).subscribe(
       (res: any) => {
+        res.dire_win = !res.radiant_win;
         this.match_details = res;
         for (let i in res.players) {
           res.players[i].KDA = (Math.round((res.players[i].kills + res.players[i].assists) /

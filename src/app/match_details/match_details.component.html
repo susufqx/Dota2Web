@@ -2,7 +2,12 @@
   <h2 class="text-center">DOTA2_MATCH_DETAILS</h2>
   <div *ngIf="players">
     <div *ngFor="let team of players">
-      <h2>{{team.name}}</h2>
+      <h2>
+        <!--{{team.name}}-->
+        <a *ngIf="team.name=='Radiant';then radiantBlock;else direBlock"></a>
+        <ng-template #radiantBlock>Radiant&nbsp;<b *ngIf="match_details.radiant_win">Win</b></ng-template>
+        <ng-template #direBlock>Dire&nbsp;<b *ngIf="match_details.dire_win">Win</b></ng-template>
+      </h2>
       <table class="table table-striped table-bordered table-hover">
         <thead>
           <tr class="text-center">
